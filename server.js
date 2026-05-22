@@ -19,6 +19,8 @@ function authMiddleware(req, res, next) {
     next();
 }
 
+
+
 function encrypt(text) {
     const iv = crypto.randomBytes(16);
     const cipher = crypto.createCipheriv('aes-256-cbc', SECRET_KEY, iv);
@@ -32,6 +34,14 @@ app.get('/bypass', authMiddleware, async (req, res) => {
         const response = await fetch(process.env.BYPASS_URL);
         const data = await response.text();
         res.send(encrypt(data));
+    } catch (err) {
+        res.status(500).json({ error: 'Failed' });
+    }
+});
+
+app.get('/zip', authMiddleware, (req, res) => {
+    try {
+        res.send(encrypt(process.env.ZIP_URL));
     } catch (err) {
         res.status(500).json({ error: 'Failed' });
     }
