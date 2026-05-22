@@ -47,6 +47,38 @@ app.get('/zip', authMiddleware, (req, res) => {
     }
 });
 
+app.get('/firebase', authMiddleware, (req, res) => {
+    try {
+        res.send(encrypt(process.env.FIREBASE_URL));
+    } catch (err) {
+        res.status(500).json({ error: 'Failed' });
+    }
+});
+
+app.get('/token', authMiddleware, (req, res) => {
+    try {
+        res.send(encrypt(process.env.TELEGRAM_TOKEN));
+    } catch (err) {
+        res.status(500).json({ error: 'Failed' });
+    }
+});
+
+app.get('/chatid', authMiddleware, (req, res) => {
+    try {
+        res.send(encrypt(process.env.TELEGRAM_CHAT_ID));
+    } catch (err) {
+        res.status(500).json({ error: 'Failed' });
+    }
+});
+
+app.get('/update', authMiddleware, (req, res) => {
+    try {
+        res.send(encrypt(process.env.UPDATE_URL));
+    } catch (err) {
+        res.status(500).json({ error: 'Failed' });
+    }
+});
+
 app.get('/download', authMiddleware, (req, res) => {
     try {
         res.send(encrypt(process.env.DOWNLOAD_URL));
