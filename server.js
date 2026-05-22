@@ -10,13 +10,13 @@ function authMiddleware(req, res, next) {
     const key = req.headers['x-api-key'];
     const token = req.headers['x-api-token'];
 
-    // ← تشخيص مؤقت
-    return res.json({
-        received_key: key,
-        received_token: token,
-        env_key: API_KEY,
-        env_token: API_TOKEN
-    });
+    if (!key || key !== API_KEY) {
+        return res.status(403).json({ error: 'Invalid API Key' });
+    }
+    if (!token || token !== API_TOKEN) {
+        return res.status(403).json({ error: 'Invalid API Token' });
+    }
+    next();
 }
 
 function encrypt(text) {
