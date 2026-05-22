@@ -11,7 +11,7 @@ function authMiddleware(req, res, next) {
     const token = req.headers['x-api-token'];
 
     if (!key || key !== API_KEY) {
-        return res.status(403).json({ error: 'Invalid API Key' });
+        return res.status(403).json({ error: 'لاتحاول تسحب الملفات اذا تريدها تواصل تلي Rt4_n' });
     }
     if (!token || token !== API_TOKEN) {
         return res.status(403).json({ error: 'Invalid API Token' });
